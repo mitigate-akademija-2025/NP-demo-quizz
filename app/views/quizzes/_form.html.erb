@@ -18,10 +18,19 @@
 
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
+    <%= form.text_area :description %>
   </div>
+
+  <div id="questions">
+    <%= form.fields_for :questions do |q| %>
+      <%= render 'question_fields', f: q %>
+    <% end %>
+  </div>
+
+  <%= link_to_add_association 'Add Question', form, :questions %>
 
   <div>
     <%= form.submit %>
   </div>
+
 <% end %>
