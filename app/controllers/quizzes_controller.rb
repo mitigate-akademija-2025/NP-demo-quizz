@@ -1,9 +1,22 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy ]
+  # skip user authentication for take action if you want guests to take quiz
+  skip_before_action :authenticate_user!, only: [:take, :submit]
+
+  def take
+    @quiz = Quiz.find(params[:id])
+    # show quiz questions to user here
+  end
+
+  def submit
+    @quiz = Quiz.find(params[:id])
+    # process answers from params and save a Response record
+    # optionally associate with current_user if logged in
+  end
 
   # GET /quizzes or /quizzes.json
   def index
-    @quizzes = Quiz.all
+    @quizzes = current_user.quizzes
   end
 
   # GET /quizzes/1 or /quizzes/1.json
@@ -21,7 +34,8 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes or /quizzes.json
   def create
-    @quiz = Quiz.new(quiz_params)
+    @quiz = current_user.quizzes.new(quiz_params)
+    # Quiz.new(quiz_params)
 
     respond_to do |format|
       if @quiz.save
@@ -60,7 +74,8 @@ class QuizzesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
-      @quiz = Quiz.find(params.expect(:id))
+      @quiz = current_user.quizzes.find(params[:id])
+      # Quiz.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
