@@ -1,12 +1,9 @@
-<div id="<%= dom_id question %>">
-  <p>
-    <strong>Quiz:</strong>
-    <%= question.quiz_id %>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
-    <%= question.content %>
-  </p>
-
-</div>
+<%= fields_for [@question.quiz, @question] do |ff| %>
+  <fieldset id="<%= dom_id(question) %>">
+    <legend>Question info</legend>
+    <%= ff.text_field :name %><br>
+    <%= ff.text_field :content %>
+    <%= ff.hidden_field :id %>
+    <%= button_tag "Remove question", formaction: question_path(dom_id(question)), formmethod: :delete %>
+  </fieldset>
+<% end %>

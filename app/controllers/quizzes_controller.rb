@@ -25,7 +25,8 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
-    @quiz = Quiz.new
+    @quiz = current_user.quizzes.build
+    @quiz.questions.build
   end
 
   # GET /quizzes/1/edit
@@ -34,16 +35,16 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes or /quizzes.json
   def create
-    @quiz = current_user.quizzes.new(quiz_params)
     # Quiz.new(quiz_params)
+    @quiz = current_user.quizzes.build(quiz_params)
 
     respond_to do |format|
       if @quiz.save
         format.html { redirect_to @quiz, notice: "Quiz was successfully created." }
         format.json { render :show, status: :created, location: @quiz }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end
     end
   end

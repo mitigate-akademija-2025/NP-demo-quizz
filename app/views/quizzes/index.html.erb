@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Quizzes" %>
+<div>
+  <h1>Quizzes</h1>
 
-<h1>Quizzes</h1>
-
-<table id="quizzes">
+  <table id="quizzes">
     <thead>
       <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Description</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -17,6 +17,10 @@
         <%= render 'quiz_row', quiz: quiz %>
       <% end %>
     </tbody>
-</table>
+  </table>
 
-<%= link_to "New quiz", new_quiz_path %>
+
+  <%= link_to "New quiz", new_quiz_path %>
+</div>
+
+

@@ -12,7 +12,12 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @quiz = Quiz.find(params[:quiz_id])
+    @question = @quiz.questions.build
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /questions/1/edit
@@ -49,11 +54,19 @@ class QuestionsController < ApplicationController
 
   # DELETE /questions/1 or /questions/1.json
   def destroy
-    @question.destroy!
+    # @question.destroy!
 
+    # respond_to do |format|
+    #   format.html { redirect_to questions_path, notice: "Question was successfully destroyed.", status: :see_other }
+    #   format.json { head :no_content }
+
+    question = Question.find(params[:id])
+    question.destroy
+  rescue ActiveRecord::RecordNotFound
+    question = Task.new(id: params[:id])
+  ensure
     respond_to do |format|
-      format.html { redirect_to questions_path, notice: "Question was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+      format.turbo_stream
     end
   end
 
