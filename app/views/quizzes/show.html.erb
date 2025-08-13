@@ -1,20 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<div>
-  <%= render @quiz %>
-  <ul>
-    <% @quiz.questions.each do |question| %>
-      <li><%= question.name %></li>
-    <% end %>
-  </ul>
-  <div class="text-center">
-    <%= link_to "Edit this quiz", public_quiz_path(@quiz) %> |
-    <%= link_to "Back to quizzes", quizzes_path %>
-    <%= button_to "Destroy this quiz", @quiz, method: :delete %>
-  </div>
+<h1>Quizz overview</h1>
 
-  <p>
-  Share this quiz: 
-  <%= public_quiz_url(share_token: @quiz.share_token) %>
-  </p>
+<div>
+  <%= render "quiz", quiz: @quiz %>
+
+  <!-- Action buttons at bottom -->
+  <div class="text-center">
+    <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
+    <%= link_to "Back to quizzes", quizzes_path %> |
+    <%= button_to "Destroy this quiz", @quiz, method: :delete, data: { confirm: "Are you sure?" } %>
+  </div>
+  
 </div>

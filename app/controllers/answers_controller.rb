@@ -48,15 +48,29 @@ class AnswersController < ApplicationController
 
   def public_create
     @quiz = Quiz.find_by!(share_token: params[:share_token])
+
+    participant_initials = params[:participant_initials]
+    participant_email = params[:participant_email]
     
-    params[:answers].each do |answer_param|
-      next if answer_param[:content].blank? # skip empty answers
-      Answer.create(
-        question_id: answer_param[:question_id],
-        content: answer_param[:content]
-        # optional: add user_id if needed for logged-in users
+    if user_signed_in?
+      participant_initials = current_user.email.split('@').first[0,3].upcase # or use name if available
+      participant_email = current_user.email
+    elsif participant_email.blank?
+      participant_email = participant_initials
+    end
+
+    params[:answers].each do |question_id, content|
+    next if content.blank?
+
+    Answer.create!(
+      question_id: question_id,
+      content: content,
+      user_id: user_signed_in? ? current_user.id : nil,
+      participant_initials: participant_initials,
+      participant_email: participant_email
       )
     end
+
     flash[:notice] = "Your answers were successfully submitted!"
     redirect_to public_quiz_path(@quiz.share_token)
   end

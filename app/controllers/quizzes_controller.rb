@@ -42,7 +42,7 @@ class QuizzesController < ApplicationController
   def edit
     (10 - @quiz.questions.size).times do
       question = @quiz.questions.build
-      question.answers.build
+      # question.answers.build
     end
   end
 

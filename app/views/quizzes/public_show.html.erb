@@ -16,3 +16,31 @@
     <%= f.submit "Submit All Answers" %>
   <% end %>
 <% end %>
+
+<h1><%= @quiz.title %></h1>
+
+<%= form_with url: public_quiz_answers_path(@quiz.share_token), local: true do |f| %>
+  <% if !user_signed_in? %>
+    <div>
+      <label>User initials:</label>
+      <%= text_field_tag :participant_initials, nil, placeholder: "Enter your initials" %>
+    </div>
+
+    <div>
+      <label>Email:</label>
+      <%= email_field_tag :participant_email, nil, placeholder: "Enter your email" %>
+    </div>
+  <% else %>
+    <p>User initials: <%= current_user.email.split('@').first[0,3].upcase %></p>
+    <p>Email: <%= current_user.email %></p>
+  <% end %>
+
+  <% @quiz.questions.each do |question| %>
+    <div>
+      <p><strong>Question: <%= question.name %></strong></p>
+      <%= text_area_tag "answers[#{question.id}]", nil, placeholder: "Your answer..." %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Submit all answers" %>
+<% end %>

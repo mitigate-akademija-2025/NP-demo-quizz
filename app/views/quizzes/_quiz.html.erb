@@ -9,4 +9,28 @@
     <%= quiz.description %>
   </p>
 
-</div>
+<h3>Questions & Answers</h3>
+<% quiz.questions.each_with_index do |question, index| %>
+  <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc;">
+    <strong>Question <%= index + 1 %>:</strong> <%= question.name %>
+    <% if question.answers.any? %>
+      <table style="margin-left: 20px; border-collapse: collapse; width: 100%;">
+        <% question.answers.each do |answer| %>
+          <tr>
+            <td style="padding: 5px; width: 20%;">
+              <%= answer.participant_initials || "guest" %>
+            </td>
+            <td style="padding: 5px; width: 30%;">
+              <%= answer.participant_email || "guest" %>
+            </td>
+            <td style="padding: 5px;">
+              <%= answer.content %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p style="margin-left: 20px; color: gray;">No answers yet.</p>
+    <% end %>
+  </div>
+<% end %>
