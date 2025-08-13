@@ -1,0 +1,18 @@
+<h1><%= @quiz.title %></h1>
+
+<% if flash[:notice] %>
+  <p style="color: green;"><%= flash[:notice] %></p>
+
+<% else %>
+  <%= form_with url: public_quiz_answers_path(@quiz.share_token), local: true do |f| %>
+    <% @quiz.questions.each_with_index do |question, index| %>
+      <div style="margin-bottom: 20px;">
+        <p><strong>Question <%= index + 1 %>: <%= question.name %></strong></p>
+        <%= hidden_field_tag "answers[][question_id]", question.id %>
+        <%= text_area_tag "answers[][content]", nil, placeholder: "Your answer..." %>
+      </div>
+    <% end %>
+
+    <%= f.submit "Submit All Answers" %>
+  <% end %>
+<% end %>

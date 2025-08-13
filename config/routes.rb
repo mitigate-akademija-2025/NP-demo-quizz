@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  resources :quizzes do
-    resources :questions, only: [:new, :destroy]
-    #   resources :answers, only: [:new, :create, :edit, :update, :destroy]
-    # end
+  resources :quizzes do    
+    resources :questions, only: [:new, :destroy] do
+      resources :answers, only: [:new, :create, :edit, :update, :destroy]
+    end
   end
+
+  get 'quizzes/:share_token/public', to: 'quizzes#public_show', as: :public_quiz
+  post 'quizzes/:share_token/submit_answer', to: 'answers#public_create', as: :public_quiz_answers
+
+  resources :answers, only: [:create]
 
   devise_for :users
   

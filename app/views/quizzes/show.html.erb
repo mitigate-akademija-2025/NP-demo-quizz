@@ -8,8 +8,13 @@
     <% end %>
   </ul>
   <div class="text-center">
-    <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
+    <%= link_to "Edit this quiz", public_quiz_path(@quiz) %> |
     <%= link_to "Back to quizzes", quizzes_path %>
     <%= button_to "Destroy this quiz", @quiz, method: :delete %>
   </div>
+
+  <p>
+  Share this quiz: 
+  <%= public_quiz_url(share_token: @quiz.share_token) %>
+  </p>
 </div>
