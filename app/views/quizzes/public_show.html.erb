@@ -5,42 +5,33 @@
 
 <% else %>
   <%= form_with url: public_quiz_answers_path(@quiz.share_token), local: true do |f| %>
-    <% @quiz.questions.each_with_index do |question, index| %>
-      <div style="margin-bottom: 20px;">
-        <p><strong>Question <%= index + 1 %>: <%= question.name %></strong></p>
-        <%= hidden_field_tag "answers[][question_id]", question.id %>
-        <%= text_area_tag "answers[][content]", nil, placeholder: "Your answer..." %>
+    <% if !user_signed_in? %>
+      <div>
+        <label>User initials:</label>
+        <%= text_field_tag :participant_initials, nil, placeholder: "Enter your initials" %>
+      </div>
+
+      <div>
+        <label>Email:</label>
+        <%= email_field_tag :participant_email, nil, placeholder: "Enter your email" %>
+      </div>
+    <% else %>
+      <p>User initials: <%= current_user.email.split('@').first[0,3].upcase %></p>
+      <p>Email: <%= current_user.email %></p>
+    <% end %>
+
+    <% @quiz.questions.each do |question| %>
+      <div>
+        <p><strong>Question: <%= question.name %></strong></p>
+        <%= text_area_tag "answers[#{question.id}]", nil, placeholder: "Your answer..." %>
       </div>
     <% end %>
 
-    <%= f.submit "Submit All Answers" %>
+    <%= f.submit "Submit all answers" %>
   <% end %>
 <% end %>
 
-<h1><%= @quiz.title %></h1>
-
-<%= form_with url: public_quiz_answers_path(@quiz.share_token), local: true do |f| %>
-  <% if !user_signed_in? %>
-    <div>
-      <label>User initials:</label>
-      <%= text_field_tag :participant_initials, nil, placeholder: "Enter your initials" %>
-    </div>
-
-    <div>
-      <label>Email:</label>
-      <%= email_field_tag :participant_email, nil, placeholder: "Enter your email" %>
-    </div>
-  <% else %>
-    <p>User initials: <%= current_user.email.split('@').first[0,3].upcase %></p>
-    <p>Email: <%= current_user.email %></p>
-  <% end %>
-
-  <% @quiz.questions.each do |question| %>
-    <div>
-      <p><strong>Question: <%= question.name %></strong></p>
-      <%= text_area_tag "answers[#{question.id}]", nil, placeholder: "Your answer..." %>
-    </div>
-  <% end %>
-
-  <%= f.submit "Submit all answers" %>
+<%# Always show 'Back to quizzes' link for logged-in users %>
+<% if user_signed_in? %>
+  <%= link_to "Back to quizzes", quizzes_path, class: "button" %>
 <% end %>

@@ -1,6 +1,5 @@
 
 <tr id="<%= dom_id quiz %>">
-  <td><%= quiz.id %></td>
   <td><%= link_to quiz %></td>
   <td><%= quiz.description %></td>
   <td>
@@ -9,4 +8,5 @@
       <%= button_to 'Destroy', quiz, method: :delete %>
     </div>
   </td>
+  <td><%= link_to public_quiz_url(quiz.share_token), public_quiz_url(quiz.share_token), target: "_blank" %></td>
 </tr>

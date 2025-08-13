@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'quizzes/:share_token/public', to: 'quizzes#public_show', as: :public_quiz
   post 'quizzes/:share_token/submit_answer', to: 'answers#public_create', as: :public_quiz_answers
 
+  # get 'quizzes/:share_token/thank_you', to: 'quizzes#thank_you', as: 'thank_you_quiz'
+  
   resources :answers, only: [:create]
 
   devise_for :users

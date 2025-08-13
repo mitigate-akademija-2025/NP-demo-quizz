@@ -114,4 +114,8 @@ class QuizzesController < ApplicationController
         ]
       )
     end
+
+    def thank_you
+      @quiz = Quiz.find_by!(share_token: params[:share_token])
+    end
 end

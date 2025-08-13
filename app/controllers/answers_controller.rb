@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:public_create]
+  before_action :authenticate_user!, except: [:public_create]
 
   def create
     @question = Question.find(params[:question_id])
@@ -71,8 +71,10 @@ class AnswersController < ApplicationController
       )
     end
 
+    # session["quiz_#{@quiz.id}_submitted"] = true
     flash[:notice] = "Your answers were successfully submitted!"
     redirect_to public_quiz_path(@quiz.share_token)
+    # redirect_to thank_you_quiz_path(@quiz.share_token) and return
   end
 
   # PATCH/PUT /answers/1 or /answers/1.json
