@@ -1,12 +1,14 @@
 
 <tr id="<%= dom_id quiz %>">
-  <td><%= link_to quiz %></td>
-  <td><%= quiz.description %></td>
   <td>
-    <div style="display: flex; gap: 10px;">
-      <%= button_to 'Edit', edit_quiz_path(quiz), method: :get %>
-      <%= button_to 'Destroy', quiz, method: :delete %>
+    <button type="button" class="btn btn-link"><%= link_to quiz %></button>
+  </td>
+  <td class="fw-medium align-middle"><%= quiz.description %></td>
+  <td>
+    <div style="display: flex; gap: 5px;">
+      <%= button_to 'Edit', edit_quiz_path(quiz), method: :get, type: "button", class: "btn btn-info" %>
+      <%= button_to 'Delete', quiz, method: :delete, type: "button", class: "btn btn-danger"%>
     </div>
   </td>
-  <td><%= link_to public_quiz_url(quiz.share_token), public_quiz_url(quiz.share_token), target: "_blank" %></td>
+  <td><%= link_to public_quiz_url(quiz.share_token), public_quiz_url(quiz.share_token), target: "_blank", class: "btn btn-link" %></td>
 </tr>

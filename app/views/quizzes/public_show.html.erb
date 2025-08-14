@@ -34,4 +34,7 @@
 <%# Always show 'Back to quizzes' link for logged-in users %>
 <% if user_signed_in? %>
   <%= link_to "Back to quizzes", quizzes_path, class: "button" %>
+<% else %>
+  <%= link_to 'Log in', new_user_session_path %>
+  <%= link_to 'Sign up', new_user_registration_path %>
 <% end %>

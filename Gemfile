@@ -62,4 +62,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# https://github.com/heartcombo/devise
 gem "devise", "~> 4.9"
+
+# https://github.com/twbs/bootstrap-rubygem?tab=readme-ov-file#a-ruby-on-rails
+gem 'bootstrap', '~> 5.3.3'
+gem 'dartsass-rails'
