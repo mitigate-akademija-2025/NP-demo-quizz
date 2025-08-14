@@ -1,15 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Quizz overview</h1>
 
-<div>
-  <%= render "quiz", quiz: @quiz %>
+<div class="card mb-4 rounded-3 shadow-sm border-primary">
+  <div class="card-header py-3 text-bg-primary border-primary">
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- Left side -->
+      <h3 class="my-0 fw-normal">Questionare results</h3>
 
-  <!-- Action buttons at bottom -->
-  <div class="text-center">
-    <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
-    <%= link_to "Back to quizzes", quizzes_path %> |
-    <%= button_to "Destroy this quiz", @quiz, method: :delete, data: { confirm: "Are you sure?" } %>
+      <!-- Right side buttons -->
+      <div class="btn-group">
+        <%= link_to "Edit", edit_quiz_path(@quiz), class: "btn btn-outline-info" %>
+        <%= link_to "Home", quizzes_path, class: "btn btn-outline-warning" %>
+        <%= button_to "Delete", @quiz, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
   </div>
-  
+
+  <div class="card-body">
+    <%= render "quiz", quiz: @quiz %>
+  </div>
+</div>
+
+<!-- Action buttons at bottom -->
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center pb-3 mb-3">
+      <li><%= link_to "Edit this Questionare", edit_quiz_path(@quiz), class: "nav-link px-2 text-body-secondary nav-item" %></li>
+      <li><%= link_to "Back to Library", quizzes_path, class: "nav-link px-2 text-body-secondary nav-item" %></li>
+      <li><%= button_to "Delete this Questionare", @quiz, method: :delete, data: { confirm: "Are you sure?" }, class: "nav-link px-2 text-body-secondary nav-item" %></li>
+    </ul>
+  </footer>
 </div>

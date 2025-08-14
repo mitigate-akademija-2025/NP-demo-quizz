@@ -4,21 +4,23 @@
   <h2 class="fs-2">Questionares</h2>
   <br>
 
-  <table class="table table-hover" id="quizzes">
-    <thead>
-      <tr>
-        <th class="text-start fw-bold">Title</th>
-        <th class="text-start fw-bold">Description</th>
-        <th class="text-start fw-bold">Actions</th>
-        <th class="text-start fw-bold">Take questionare/Share</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @quizzes.each do |quiz| %>
-        <%= render 'quiz_row', quiz: quiz %>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="bd-example">
+    <table class="table table-hover" id="quizzes">
+      <thead>
+        <tr>
+          <th class="text-start fw-bold">Title</th>
+          <th class="text-start fw-bold">Description</th>
+          <th class="text-start fw-bold">Actions</th>
+          <th class="text-start fw-bold">Take questionare/Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @quizzes.each do |quiz| %>
+          <%= render 'quiz_row', quiz: quiz %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <div class="d-grid gap-2">
     <%= link_to "New quiz", new_quiz_path, class: "btn btn-success" %>

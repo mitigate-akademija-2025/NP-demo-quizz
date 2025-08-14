@@ -1,20 +1,26 @@
-<div id="<%= dom_id quiz %>">
-  <p>
-    <strong>Title:</strong>
-    <%= quiz.title %>
-  </p>
+<div id="<%= dom_id quiz %>" class="list-group-item d-flex justify-content-between lh-sm">
+  <div style="margin-left: 20px">
+    <p>
+      <strong>Title:</strong>
+      <%= quiz.title %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= quiz.description %>
-  </p>
+    <p>
+      <strong>Description:</strong>
+      <%= quiz.description %>
+    </p>
+  </div>
+</div>
 
-<h3>Questions & Answers</h3>
+<div class="card-header py-3 bg-transparent border-primary">
+  <h3 class="my-0 fw-normal">Questions & Answers</h3>
+</div>
+
 <% quiz.questions.each_with_index do |question, index| %>
-  <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc;">
+  <div class="card-body">
     <strong>Question <%= index + 1 %>:</strong> <%= question.name %>
     <% if question.answers.any? %>
-      <table style="margin-left: 20px; border-collapse: collapse; width: 100%;">
+      <table class="table table-striped">
         <% question.answers.each do |answer| %>
           <tr>
             <td style="padding: 5px; width: 20%;">
