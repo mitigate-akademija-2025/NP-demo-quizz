@@ -53,7 +53,7 @@ class AnswersController < ApplicationController
     participant_email = params[:participant_email]
     
     if user_signed_in?
-      participant_initials = current_user.email.split('@').first[0,3].upcase # or use name if available
+      participant_initials = current_user.username # or use name if available
       participant_email = current_user.email
     elsif participant_email.blank?
       participant_email = participant_initials

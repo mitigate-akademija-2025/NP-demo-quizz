@@ -37,7 +37,7 @@
             <%= email_field_tag :participant_email, nil, placeholder: "Enter your email", class: "form-control" %>
           </div>
         <% else %>
-          <p><strong>Initials:</strong> <%= current_user.email.split('@').first[0,3].upcase %></p>
+          <p><strong>Initials:</strong> <%= current_user.username %></p>
           <p><strong>Email:</strong> <%= current_user.email %></p>
         <% end %>
 

@@ -27,7 +27,7 @@
     <div class="container">
       <header class="d-flex flex-wrap align-items-center position-relative py-3 mb-4 border-bottom">
         <% if user_signed_in? %>
-          <span class="fs-6 fst-italic text-body-tertiary">Welcome, <strong><%= current_user.username %></strong></span>
+          <p class="fs-6 fst-italic text-body-tertiary">Welcome, <strong><%= current_user.username %></strong></p>
           <p class="position-absolute start-50 translate-middle-x m-0 fs-4 text-primary">Your library</p>
 
           <div class="d-flex gap-2 ms-auto">
