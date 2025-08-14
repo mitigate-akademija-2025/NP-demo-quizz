@@ -1,24 +1,25 @@
 <%= form_with(model: quiz, local: true) do |f| %>
-  <div style="margin-left: 20px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-    <%= f.label :title %>
-    <br>
-    <%= f.text_field :title %>
+  <div class="mb-3">
+    <strong><%= f.label :title, class: "form-label" %></strong>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
-  <div style="margin-left: 20px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-    <%= f.label :description %>
-    <br>
-    <%= f.text_area :description %>
+  <div class="mb-3 border-bottom border-primary pb-4">
+    <strong><%= f.label :description, class: "form-label" %></strong>
+    <%= f.text_area :description, class: "form-control", rows: 3 %>
   </div>
 
-  <h3>Questions</h3>
+  <h2 class="mb-3">Questions</h2>
+
   <%= f.fields_for :questions do |qf| %>
     <% question_index = qf.index + 1 %>
-    <div style="margin-left: 20px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-      <strong>Question <%= question_index %>:</strong>
-      <%= qf.text_field :name %>
+    <div class="mb-3">
+      <label class="form-label">
+        <strong>Question <%= question_index %>:</strong>
+      </label>
+      <%= qf.text_area :name, class: "form-control", rows: 2 %>
     </div>
   <% end %>
-
-  <%= f.submit %>
+  
+  <%= f.submit "Save", class: "btn btn-success w-100" %>
 <% end %>

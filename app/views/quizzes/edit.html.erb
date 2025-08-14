@@ -1,16 +1,29 @@
-<div>
-  <h1>Editing quiz</h1>
-  
-  <%= render "form", quiz: @quiz %>
-  <br>
-  <div>
-    <%= link_to "Show this quiz", @quiz %> |
-    <%= link_to "Back to quizzes", quizzes_path %>
-  </div>
+<%= form_with(model: @quiz, local: true) do |f| %>
+  <div class="card mb-4 rounded-3 shadow-sm border-primary">
+    <!-- Card header -->
+    <div class="card-header py-3 text-bg-primary border-primary">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- Left side -->
+        <h3 class="my-0 fw-normal">Questionare editor</h3>
 
-  <p>
-    Share this quiz:
-    <br>
-    <%= public_quiz_url(share_token: @quiz.share_token) %>
-  </p>
-</div>
+        <!-- Right side buttons -->
+        <div class="btn-group">
+          <%= f.submit "Save", class: "btn btn-outline-light" %>
+          <%= link_to "Results", @quiz, class: "btn btn-outline-info" %>
+          <%= link_to "Home", quizzes_path, class: "btn btn-outline-warning" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="card-body">
+      <%= render "form", quiz: @quiz %>
+
+      <hr>
+      <p class="mb-0">
+        <strong>Share public link:</strong><br>
+        <%= public_quiz_url(share_token: @quiz.share_token) %>
+      </p>
+    </div>
+  </div>
+<% end %>

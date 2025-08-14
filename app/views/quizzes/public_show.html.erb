@@ -1,40 +1,57 @@
-<h1><%= @quiz.title %></h1>
+<h1 class="mb-4"><%= @quiz.title %></h1>
 
 <% if flash[:notice] %>
-  <p style="color: green;"><%= flash[:notice] %></p>
-
+  <p class="text-success"><%= flash[:notice] %></p>
+  
 <% else %>
   <%= form_with url: public_quiz_answers_path(@quiz.share_token), local: true do |f| %>
-    <% if !user_signed_in? %>
-      <div>
-        <label>User initials:</label>
-        <%= text_field_tag :participant_initials, nil, placeholder: "Enter your initials" %>
+    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+      <!-- Card header -->
+      <div class="card-header py-3 text-bg-primary border-primary">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Left side -->
+          <h3 class="my-0 fw-normal">Submit Your Answers</h3>
+
+          <!-- Right side buttons -->
+          <div class="btn-group">
+            <% if user_signed_in? %>
+              <%= link_to "Home", quizzes_path, class: "btn btn-outline-warning" %>
+            <% else %>
+              <%= link_to 'Log in', new_user_session_path, class: "btn btn-outline-info" %>
+              <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-outline-info" %>
+            <% end %>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label>Email:</label>
-        <%= email_field_tag :participant_email, nil, placeholder: "Enter your email" %>
-      </div>
-    <% else %>
-      <p>User initials: <%= current_user.email.split('@').first[0,3].upcase %></p>
-      <p>Email: <%= current_user.email %></p>
-    <% end %>
+      <!-- Card body -->
+      <div class="card-body">
+        <% if !user_signed_in? %>
+          <div class="mb-3">
+            <%= label_tag :participant_initials, "Initials", class: "form-label fw-bold" %>
+            <%= text_field_tag :participant_initials, nil, placeholder: "Enter your initials", class: "form-control" %>
+          </div>
 
-    <% @quiz.questions.each do |question| %>
-      <div>
-        <p><strong>Question: <%= question.name %></strong></p>
-        <%= text_area_tag "answers[#{question.id}]", nil, placeholder: "Your answer..." %>
-      </div>
-    <% end %>
+          <div class="mb-3">
+            <%= label_tag :participant_email, "Email", class: "form-label fw-bold" %>
+            <%= email_field_tag :participant_email, nil, placeholder: "Enter your email", class: "form-control" %>
+          </div>
+        <% else %>
+          <p><strong>Initials:</strong> <%= current_user.email.split('@').first[0,3].upcase %></p>
+          <p><strong>Email:</strong> <%= current_user.email %></p>
+        <% end %>
 
-    <%= f.submit "Submit all answers" %>
+        <% @quiz.questions.each_with_index do |question, idx| %>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Question <%= idx + 1 %>: <%= question.name %></label>
+            <%= text_area_tag "answers[#{question.id}]", nil, placeholder: "Your answer...", class: "form-control", rows: 3 %>
+          </div>
+        <% end %>
+
+        <div class="mt-4">
+          <%= f.submit "Submit all answers", class: "btn btn-success w-100" %>
+        </div>
+      </div>
+    </div>
   <% end %>
-<% end %>
-
-<%# Always show 'Back to quizzes' link for logged-in users %>
-<% if user_signed_in? %>
-  <%= link_to "Back to quizzes", quizzes_path, class: "button" %>
-<% else %>
-  <%= link_to 'Log in', new_user_session_path %>
-  <%= link_to 'Sign up', new_user_registration_path %>
 <% end %>
